@@ -36,6 +36,7 @@ import { NotificationModule } from "./notifications/notification.module";
 import { NoticeModule } from "./notice/notice.module";
 import { SettingModule } from "./settings/settings.module";
 import { FeeModule } from "./fee/fee.module";
+import { WeaverModule } from "./weaver/weaver.module";
 
 @Module({
   imports: [
@@ -99,7 +100,8 @@ import { FeeModule } from "./fee/fee.module";
     NotificationModule,
     NoticeModule,
     SettingModule,
-    FeeModule
+    FeeModule,
+    WeaverModule
   ]
 })
 export class AppModule { }

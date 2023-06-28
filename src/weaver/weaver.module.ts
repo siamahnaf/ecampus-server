@@ -9,8 +9,8 @@ import { WeaverService } from "./weaver.service";
 import { WeaverResolver } from "./weaver.resolver";
 
 //Modules
-import { UserModule } from "src/user/user.module";
-import { StudentModule } from "src/student/student.module";
+import { UserModule } from "@/user/user.module";
+import { StudentModule } from "@/student/student.module";
 
 @Module({
     imports: [

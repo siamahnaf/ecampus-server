@@ -8,6 +8,7 @@ import { Fee } from "./model/fee.entity";
 //Dto
 import { FeeInput } from "./dto/fee.dto";
 import { SearchInput } from "src/section/dto/search.dto";
+import { FeeByClassInput } from "./dto/fee-by-class.dto";
 
 //Req user
 import { ReqUser } from "src/auth/Types/user.types";
@@ -42,10 +43,13 @@ export class FeeService {
     };
 
     //Get fees by class
-    async getsByClass(classId: string) {
+    async getsByClass(feeByClassInput: FeeByClassInput) {
         const fees = await this.feeRepository.find({
             where: {
-                class: { id: classId }
+                class: { id: feeByClassInput.classId },
+                shift: { id: feeByClassInput.shiftId },
+                section: { id: feeByClassInput.sectionId },
+                ...(feeByClassInput.groupId !== "" ? { group: { id: feeByClassInput.groupId } } : {}),
             },
             relations: {
                 class: true,

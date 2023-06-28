@@ -1,17 +1,17 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, CreateDateColumn, UpdateDateColumn } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, CreateDateColumn, UpdateDateColumn, Relation } from "typeorm";
 
 //Entities
-import { Fee } from "src/fee/model/fee.entity";
-import { Student } from "src/student/model/student.entity";
-import { User } from "src/user/model/user.entity";
+import { Fee } from "@/fee/model/fee.entity";
+import { Student } from "@/student/model/student.entity";
+import { User } from "@/user/model/user.entity";
 
 @Entity()
 export class Weaver {
-    @PrimaryGeneratedColumn("uuid")
+    @PrimaryGeneratedColumn("identity")
     id: string;
 
     @ManyToOne(() => Fee)
-    fee: Fee;
+    fee: Relation<Fee>;
 
     @Column({ type: "text" })
     discount: string;
@@ -23,10 +23,10 @@ export class Weaver {
     frequency: string;
 
     @ManyToOne(() => Student)
-    student: Student;
+    student: Relation<Student>;
 
     @ManyToOne(() => User)
-    createdBy: User;
+    createdBy: Relation<User>;
 
     @UpdateDateColumn({ type: "timestamptz" })
     updated_at: Date;

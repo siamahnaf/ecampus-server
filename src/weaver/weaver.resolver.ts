@@ -5,20 +5,20 @@ import { Resolver, Mutation, Query, Args, Context } from "@nestjs/graphql";
 import { WeaverService } from "./weaver.service";
 
 //Entities
-import { SuccessInfo } from "src/user/entities/success.entity";
+import { SuccessInfo } from "@/user/entities/success.entity";
 import { WeaverInfo } from "./entities/weaver.entity";
 
 //Dto
 import { WeaverInput } from "./dto/weaver.dto";
 
 //Auth guards
-import { AuthGuard } from "src/auth/auth.guard";
-import { RolesGuard } from "src/auth/roles.guard";
-import { Role } from "src/auth/enum/auth.enum";
-import { Roles } from "src/auth/decorator/auth.decorator";
+import { AuthGuard } from "@/auth/auth.guard";
+import { RolesGuard } from "@/auth/roles.guard";
+import { Role } from "@/auth/enum/auth.enum";
+import { Roles } from "@/auth/decorator/auth.decorator";
 
 //Req user
-import { ReqUser } from "src/auth/Types/user.types";
+import { ReqUser } from "@/auth/Types/user.types";
 
 @Resolver()
 export class WeaverResolver {

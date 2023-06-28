@@ -400,6 +400,23 @@ type Fee {
   created_at: DateTime!
 }
 
+type Weaver {
+  id: String!
+  fee: Fee
+  discount: String!
+  discountUnit: String!
+  frequency: String!
+  student: Student
+  createdBy: User
+  updated_at: DateTime!
+  created_at: DateTime!
+}
+
+type WeaverInfo {
+  student: Student
+  weavers: [Weaver!]
+}
+
 type Query {
   getProfile: User!
   getStudents(studentPaginationInput: StudentPaginationInput!): GetStudent!
@@ -442,7 +459,8 @@ type Query {
   getTodayNotice: [Notice!]!
   getSettings: Settings!
   getFees(searchInput: SearchInput!): [Fee!]!
-  getFeeByClass(classId: String!): [Fee!]!
+  getFeeByClass(feeByClassInput: FeeByClassInput!): [Fee!]!
+  getWeavers(id: String!): WeaverInfo!
 }
 
 input StudentPaginationInput {
@@ -471,6 +489,13 @@ input SearchInput {
   orderBy: String
   limit: Int
   page: Int
+}
+
+input FeeByClassInput {
+  classId: String!
+  shiftId: String!
+  sectionId: String!
+  groupId: String
 }
 
 type Mutation {
@@ -536,6 +561,9 @@ type Mutation {
   addFees(feeInput: FeeInput!): SuccessInfo!
   updateFees(feeInput: FeeInput!, id: String!): SuccessInfo!
   deleteFees(id: String!): SuccessInfo!
+  addWeaver(weaverInput: WeaverInput!): SuccessInfo!
+  updateWeaver(weaverInput: WeaverInput!, id: String!): SuccessInfo!
+  deleteWeaver(id: String!): SuccessInfo!
 }
 
 input RegistrationInput {
@@ -780,6 +808,14 @@ input FeeInput {
   amount: String!
   late_fee: String
   payed_in: String
+}
+
+input WeaverInput {
+  fee: String!
+  discount: String!
+  discountUnit: String!
+  frequency: String!
+  student: String!
 }
 
 type Subscription {

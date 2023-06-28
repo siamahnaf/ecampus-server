@@ -1,9 +1,10 @@
 import { ObjectType, Field } from "@nestjs/graphql";
 
 //Fee
-import { Fee } from "src/fee/entities/fee.entity";
-import { Student } from "src/student/entities/student.entity";
-import { User } from "src/user/entities/user.entity";
+import { Meta } from "@/section/entities/meta.entity";
+import { Fee } from "@/fee/entities/fee.entity";
+import { Student } from "@/student/entities/student.entity";
+import { User } from "@/user/entities/user.entity";
 
 @ObjectType()
 export class Weaver {
@@ -34,3 +35,4 @@ export class WeaverInfo {
     @Field(() => [Weaver], { nullable: true })
     weavers: Weaver[];
 }
+

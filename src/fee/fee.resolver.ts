@@ -6,6 +6,7 @@ import { FeeService } from "./fee.service";
 
 //Dto
 import { FeeInput } from "./dto/fee.dto";
+import { FeeByClassInput } from "./dto/fee-by-class.dto";
 import { SearchInput } from "@/section/dto/search.dto";
 
 //Entities
@@ -43,9 +44,9 @@ export class FeeResolver {
     @Roles(Role.ACCOUNTANT, Role.PRINCIPAL)
     @UseGuards(AuthGuard, RolesGuard)
     getByClass(
-        @Args("classId") classId: string
+        @Args("feeByClassInput") feeByClassInput: FeeByClassInput
     ) {
-        return this.feeService.getsByClass(classId)
+        return this.feeService.getsByClass(feeByClassInput)
     };
 
     //Add Fees

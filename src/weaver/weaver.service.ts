@@ -4,13 +4,13 @@ import { Repository } from "typeorm";
 
 //Entity
 import { Weaver } from "./model/weaver.entity";
-import { Student } from "src/student/model/student.entity";
+import { Student } from "@/student/model/student.entity";
 
 //Dto
 import { WeaverInput } from "./dto/weaver.dto";
 
 //Req user
-import { ReqUser } from "src/auth/Types/user.types";
+import { ReqUser } from "@/auth/Types/user.types";
 
 @Injectable()
 export class WeaverService {
@@ -27,11 +27,10 @@ export class WeaverService {
                 studentId: id
             },
             relations: {
-                class: {
-                    shift: true,
-                    section: true,
-                    group: true
-                }
+                class: true,
+                shift: true,
+                section: true,
+                group: true
             }
         });
         if (!student) throw new NotFoundException("Student not found!");
