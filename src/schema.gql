@@ -417,6 +417,90 @@ type WeaverInfo {
   weavers: [Weaver!]
 }
 
+type GradArray {
+  name: String!
+  percent_upto: String!
+  percent_from: String!
+  grade_point: String!
+}
+
+type Grade {
+  id: String!
+  name: String!
+  createdBy: User
+  grades: [GradArray!]!
+  updated_at: DateTime!
+  created_at: DateTime!
+}
+
+type Exam {
+  id: String!
+  name: String!
+  type: Grade
+  description: String
+  createdBy: User
+  updated_at: DateTime!
+  created_at: DateTime!
+}
+
+type GetExams {
+  results: [Exam!]
+  meta: Meta
+}
+
+type TotalMarks {
+  totalMarks: String!
+  subjectId: Subject
+}
+
+type Conf {
+  id: String!
+  classId: Class
+  examId: [Exam!]
+  subjects: [TotalMarks!]
+  createdBy: User
+  updated_at: DateTime!
+  created_at: DateTime!
+}
+
+type GetConf {
+  results: [Conf!]
+  meta: Meta
+}
+
+type Marks {
+  id: String!
+  subjectId: Subject
+  result: Result
+  fullMarks: String
+  cq: String
+  mcq: String
+  practical: String
+  ca: String
+  totalMarks: String
+  grade: String
+  grade_point: String
+  createdBy: User
+  updated_at: DateTime!
+  created_at: DateTime!
+}
+
+type Result {
+  id: String!
+  examId: Exam
+  classId: Class
+  shiftId: Shift
+  sectionId: Section
+  groupId: Group
+  studentId: Student
+  confId: Conf
+  gradeId: Grade
+  session: String!
+  marks: [Marks!]
+  updated_at: DateTime!
+  created_at: DateTime!
+}
+
 type Query {
   getProfile: User!
   getStudents(studentPaginationInput: StudentPaginationInput!): GetStudent!
@@ -461,6 +545,12 @@ type Query {
   getFees(searchInput: SearchInput!): [Fee!]!
   getFeeByClass(feeByClassInput: FeeByClassInput!): [Fee!]!
   getWeavers(id: String!): WeaverInfo!
+  getGrades(searchInput: SearchInput!): [Grade!]!
+  getExams(searchInput: SearchInput!): GetExams!
+  getAllExam: [Exam!]!
+  getConfs(searchInput: SearchInput!): GetConf!
+  getAllConfs: [Conf!]!
+  getResults(resultPramsInput: ResultPramsInput!): [Result!]!
 }
 
 input StudentPaginationInput {
@@ -496,6 +586,15 @@ input FeeByClassInput {
   shiftId: String!
   sectionId: String!
   groupId: String
+}
+
+input ResultPramsInput {
+  classId: String
+  shiftId: String
+  sectionId: String
+  groupId: String
+  examId: String
+  session: String
 }
 
 type Mutation {
@@ -564,6 +663,16 @@ type Mutation {
   addWeaver(weaverInput: WeaverInput!): SuccessInfo!
   updateWeaver(weaverInput: WeaverInput!, id: String!): SuccessInfo!
   deleteWeaver(id: String!): SuccessInfo!
+  addGrade(gradeInput: GradeInput!): SuccessInfo!
+  updateGrade(gradeInput: GradeInput!, id: String!): SuccessInfo!
+  deleteGrade(id: String!): SuccessInfo!
+  addExam(examInput: ExamInput!): SuccessInfo!
+  updateExam(examInput: ExamInput!, id: String!): SuccessInfo!
+  deleteExam(id: String!): SuccessInfo!
+  addConf(confInput: ConfInput!): SuccessInfo!
+  deleteConf(id: String!): SuccessInfo!
+  getSubjectResult(resultSearchInput: ResultSearchInput!): [Result!]!
+  updateMarks(marksInput: MarksInput!, id: String!): SuccessInfo!
 }
 
 input RegistrationInput {
@@ -816,6 +925,55 @@ input WeaverInput {
   discountUnit: String!
   frequency: String!
   student: String!
+}
+
+input GradeInput {
+  name: String!
+  grades: [GradArrayInput!]!
+}
+
+input GradArrayInput {
+  name: String!
+  percent_upto: String!
+  percent_from: String!
+  grade_point: String!
+}
+
+input ExamInput {
+  name: String!
+  type: String!
+  description: String
+}
+
+input ConfInput {
+  classId: String!
+  examId: [String!]!
+  subjects: [TotalMarksInput!]!
+}
+
+input TotalMarksInput {
+  subjectId: String!
+  totalMarks: String!
+}
+
+input ResultSearchInput {
+  classId: String!
+  shiftId: String!
+  sectionId: String!
+  groupId: String
+  examId: String!
+  subjectId: String!
+  session: String!
+}
+
+input MarksInput {
+  cq: Float
+  mcq: Float
+  practical: Float
+  ca: Float
+  totalMarks: Float!
+  grade: String!
+  grade_point: String!
 }
 
 type Subscription {

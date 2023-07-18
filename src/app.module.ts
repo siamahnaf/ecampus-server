@@ -37,6 +37,9 @@ import { NoticeModule } from "./notice/notice.module";
 import { SettingModule } from "./settings/settings.module";
 import { FeeModule } from "./fee/fee.module";
 import { WeaverModule } from "./weaver/weaver.module";
+import { GradeModule } from "./grade/grade.module";
+import { ExamModule } from "./exam/exam.module";
+import { ResultModule } from "./result/result.module";
 
 @Module({
   imports: [
@@ -101,7 +104,10 @@ import { WeaverModule } from "./weaver/weaver.module";
     NoticeModule,
     SettingModule,
     FeeModule,
-    WeaverModule
+    WeaverModule,
+    GradeModule,
+    ExamModule,
+    ResultModule
   ]
 })
 export class AppModule { }
